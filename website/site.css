@@ -1,7 +1,7 @@
 /* ==========================================================================
    Merksite De Niche Parfumerie — aanvullingen op de gedeelde huisstijl
    ========================================================================== */
-.site-header { position: sticky; top: 0; z-index: 50; height: 84px; background: rgba(245,241,234,.88); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid var(--line); }
+.site-header { position: sticky; top: 0; z-index: 50; height: 84px; background: linear-gradient(rgba(245,241,234,.78), rgba(245,241,234,.78)), url('../img/marmer.jpg') center / cover; border-bottom: 1px solid var(--line); }
 .site-header .wrap { height: 100%; display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 32px; }
 .site-header .logo { font-size: 19px; }
 .site-nav { display: flex; justify-content: center; gap: clamp(18px, 2.4vw, 36px); }
