@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Alle geuren · De Niche Parfumerie</title>
+  <meta name="description" content="Ontdek de volledige collectie nicheparfums van De Niche Parfumerie in Sneek. Filter op dames, heren, unisex, merk en geurfamilie.">
+  <link rel="stylesheet" href="css/style.css?v=20261102e">
+  <link rel="stylesheet" href="css/shop.css?v=20261102e">
+</head>
+<body>
+  <div id="site-header"></div>
+
+  <main>
+    <section class="page-head">
+      <div class="wrap">
+        <div class="crumbs"><a href="index.html">Home</a><span>/</span><span>Geuren</span></div>
+        <span class="eyebrow eyebrow--center">De collectie</span>
+        <h1 class="h-xl" data-title>Alle <em class="it">geuren</em></h1>
+        <p data-intro>Elke geur in onze collectie is met zorg gekozen. Filter op karakter, merk of wie hem gaat dragen.</p>
+      </div>
+    </section>
+
+    <section class="section" style="padding-top:0">
+      <div class="wrap">
+        <button class="btn filters-toggle" data-toggle-filters>Filters</button>
+        <div class="catalog">
+          <aside class="filters" data-filters>
+            <div class="filters__group">
+              <h4>Soort</h4>
+              <div data-filter-group="segment"></div>
+            </div>
+            <div class="filters__group">
+              <h4>Voor wie</h4>
+              <div data-filter-group="gender"></div>
+            </div>
+            <div class="filters__group">
+              <h4>Geurfamilie</h4>
+              <div data-filter-group="family"></div>
+            </div>
+            <div class="filters__group">
+              <h4>Prijs</h4>
+              <div class="price-range"><input type="number" placeholder="Min" min="0" step="5" data-min aria-label="Minimumprijs"><span>–</span><input type="number" placeholder="Max" min="0" step="5" data-max aria-label="Maximumprijs"></div>
+            </div>
+            <div class="filters__group">
+              <h4>Merk</h4>
+              <div class="filters__search"><input type="search" placeholder="Zoek merk" data-brand-search aria-label="Zoek merk"></div>
+              <div data-filter-group="brand"></div>
+            </div>
+            <button class="filters__reset" data-reset>Alle filters wissen</button>
+          </aside>
+
+          <div>
+            <div class="catalog__bar">
+              <span><strong data-count>0</strong> geuren</span>
+              <div class="chips" data-chips></div>
+              <label>Sorteer
+                <select class="select" data-sort>
+                  <option value="featured">Aanbevolen</option>
+                  <option value="price-asc">Prijs laag – hoog</option>
+                  <option value="price-desc">Prijs hoog – laag</option>
+                  <option value="brand">Merk A – Z</option>
+                  <option value="name">Naam A – Z</option>
+                </select>
+              </label>
+            </div>
+            <div class="grid grid--3" data-grid></div>
+            <p class="center" style="margin-top:40px"><button class="btn" data-more hidden>Toon meer (<span data-more-n></span>)</button></p>
+            <div class="empty" data-empty hidden>Geen geuren gevonden met deze filters.<br><button class="link link--gold" data-reset style="margin-top:16px">Wis de filters</button></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="js/products.js?v=20261102e"></script>
+  <script src="js/content.js?v=20261102e"></script>
+  <script src="js/main.js?v=20261102e"></script>
+  <script src="js/motion.js?v=20261102e"></script>
+  <script>
+    (function () {
+      const P = window.PRODUCTS.filter(p => !p.hidden), B = window.BRANDS.filter(b => b.id !== 'dnp'), F = window.FAMILIES, G = window.GENDERS;
+      const q = new URLSearchParams(location.search);
+      const state = {
+        gender: q.get('geslacht') ? [q.get('geslacht')] : [],
+        family: q.get('familie') ? [q.get('familie')] : [],
+        brand: q.get('merk') ? [q.get('merk')] : [],
+        segment: q.get("soort") ? [q.get("soort")] : [],
+        badge: q.get('badge') || '',
+        min: 0, max: 0,
+        sort: 'featured'
+      };
+      const PAGE = 24; let shown = PAGE;
+      const titleEl = document.querySelector('[data-title]');
+      const introEl = document.querySelector('[data-intro]');
+
+      const segOf = p => (B.find(b => b.id === p.brand) || {}).segment;
+      const counts = key => P.reduce((m, p) => { const v = key === "segment" ? segOf(p) : p[key]; m[v] = (m[v] || 0) + 1; return m; }, {});
+      function renderFilters() {
+        const groups = {
+          segment: Object.entries(window.SEGMENTS).map(([k, l]) => [k, l]),
+          gender: Object.entries(G).map(([k, l]) => [k, l]),
+          family: Object.entries(F).map(([k, f]) => [k, f.label]),
+          brand: B.map(b => [b.id, b.name])
+        };
+        Object.entries(groups).forEach(([key, opts]) => {
+          const c = counts(key);
+          document.querySelector(`[data-filter-group="${key}"]`).innerHTML = opts.filter(([k]) => c[k]).map(([k, l]) =>
+            `<label class="check"><input type="checkbox" data-key="${key}" value="${k}" ${state[key].includes(k) ? 'checked' : ''}><span>${l}</span><span class="n">${c[k]}</span></label>`).join('');
+        });
+      }
+
+      function filtered() {
+        const min = p => Math.min(...p.sizes.map(s => s.price));
+        let list = P.filter(p =>
+          (!state.gender.length || state.gender.includes(p.gender)) &&
+          (!state.family.length || (state.family.includes(p.family) && p.kind !== "set")) &&
+          (!state.brand.length || state.brand.includes(p.brand)) &&
+          (!state.segment.length || state.segment.includes(segOf(p))) &&
+          (!state.badge || p.badge === state.badge) &&
+          (!state.min || min(p) >= state.min) && (!state.max || min(p) <= state.max));
+        const bn = p => B.find(b => b.id === p.brand).name;
+        const order = { Favoriet: 0, Nieuw: 1, Icoon: 2, '': 3 };
+        switch (state.sort) {
+          case 'price-asc': list.sort((a, b) => min(a) - min(b)); break;
+          case 'price-desc': list.sort((a, b) => min(b) - min(a)); break;
+          case 'brand': list.sort((a, b) => bn(a).localeCompare(bn(b))); break;
+          case 'name': list.sort((a, b) => a.name.localeCompare(b.name)); break;
+          default: list.sort((a, b) => order[a.badge] - order[b.badge]);
+        }
+        return list;
+      }
+
+      function render() {
+        const list = filtered();
+        shown = Math.max(shown, PAGE);
+        document.querySelector("[data-grid]").innerHTML = list.slice(0, shown).map((p, i) => window.cardHTML(p, "cat" + i)).join("");
+        document.querySelector("[data-more]").hidden = list.length <= shown;
+        document.querySelector("[data-more-n]").textContent = Math.max(0, list.length - shown);
+        document.querySelector('[data-count]').textContent = list.length;
+        document.querySelector('[data-empty]').hidden = list.length > 0;
+        const chips = [];
+        state.segment.forEach(k => chips.push(["segment", k, window.SEGMENTS[k]]));
+        state.gender.forEach(k => chips.push(['gender', k, G[k]]));
+        state.family.forEach(k => chips.push(['family', k, F[k].label]));
+        state.brand.forEach(k => chips.push(['brand', k, B.find(b => b.id === k).name]));
+        if (state.badge) chips.push(['badge', state.badge, state.badge]);
+        document.querySelector('[data-chips]').innerHTML = chips.map(([key, k, l]) => `<button class="chip" data-chip="${key}|${k}">${l} <span>×</span></button>`).join('');
+        // Titel
+        if (state.gender.length === 1 && !state.family.length && !state.brand.length) {
+          titleEl.innerHTML = `Geuren voor <em class="it">${G[state.gender[0]].toLowerCase()}</em>`;
+        } else if (state.family.length === 1 && !state.gender.length && !state.brand.length) {
+          titleEl.innerHTML = `<em class="it">${F[state.family[0]].label}e</em> geuren`.replace('Frise', 'Frisse').replace('Oriëntaalse', 'Oriëntaalse').replace('Houtachtige', 'Houtachtige').replace('Bloemige', 'Bloemige').replace('Gourmande', 'Gourmand');
+          introEl.textContent = F[state.family[0]].sub + '. ' + 'Filter verder op merk of wie hem gaat dragen.';
+        } else if (state.brand.length === 1 && !state.gender.length && !state.family.length) {
+          const b = B.find(x => x.id === state.brand[0]);
+          titleEl.innerHTML = `<em class="it">${b.name}</em>`;
+          introEl.textContent = b.text;
+        } else if (state.segment.length === 1 && !state.gender.length && !state.family.length && !state.brand.length) {
+          titleEl.innerHTML = state.segment[0] === "niche" ? 'De <em class="it">nichehuizen</em>' : 'De <em class="it">grote huizen</em>';
+        } else if (state.badge && !state.gender.length && !state.family.length && !state.brand.length) {
+          titleEl.innerHTML = state.badge === 'Nieuw' ? 'Nieuw <em class="it">binnen</em>' : `De <em class="it">${state.badge.toLowerCase()}s</em>`;
+        } else {
+          titleEl.innerHTML = 'Alle <em class="it">geuren</em>';
+        }
+        window.initReveal();
+        // URL bijwerken zonder reload
+        const u = new URLSearchParams();
+        if (state.gender.length === 1) u.set('geslacht', state.gender[0]);
+        if (state.family.length === 1) u.set('familie', state.family[0]);
+        if (state.brand.length === 1) u.set('merk', state.brand[0]);
+        if (state.segment.length === 1) u.set("soort", state.segment[0]);
+        if (state.badge) u.set('badge', state.badge);
+        history.replaceState(null, '', location.pathname + (u.toString() ? '?' + u : ''));
+      }
+
+      document.addEventListener('change', e => {
+        if (e.target.matches("[data-key],[data-sort],[data-min],[data-max]")) shown = PAGE;
+        if (e.target.matches('[data-key]')) {
+          const { key } = e.target.dataset, v = e.target.value;
+          state[key] = e.target.checked ? state[key].concat(v) : state[key].filter(x => x !== v);
+          render();
+        }
+        if (e.target.matches('[data-sort]')) { state.sort = e.target.value; render(); }
+        if (e.target.matches('[data-min],[data-max]')) { state.min = Number(document.querySelector('[data-min]').value) || 0; state.max = Number(document.querySelector('[data-max]').value) || 0; render(); }
+      });
+      document.addEventListener('input', e => {
+        if (e.target.matches('[data-brand-search]')) { const v = e.target.value.toLowerCase(); document.querySelectorAll('[data-filter-group="brand"] .check').forEach(l => l.style.display = l.textContent.toLowerCase().includes(v) ? '' : 'none'); }
+      });
+      document.addEventListener('click', e => {
+        const chip = e.target.closest('[data-chip]');
+        if (chip) { const [key, k] = chip.dataset.chip.split('|'); if (key === 'badge') state.badge = ''; else state[key] = state[key].filter(x => x !== k); renderFilters(); render(); }
+        if (e.target.closest('[data-reset]')) { state.gender = []; state.family = []; state.brand = []; state.segment = []; state.badge = ""; state.min = 0; state.max = 0; document.querySelector('[data-min]').value = ''; document.querySelector('[data-max]').value = ''; renderFilters(); render(); }
+        if (e.target.closest("[data-more]")) { shown += PAGE; render(); }
+        if (e.target.closest('[data-toggle-filters]')) document.querySelector('[data-filters]').classList.toggle('is-open');
+      });
+
+      renderFilters();
+      render();
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Cadeaubon · De Niche Parfumerie</title>
+  <link rel="stylesheet" href="css/style.css?v=20261102e">
+  <link rel="stylesheet" href="css/shop.css?v=20261102e">
+</head>
+<body>
+  <div id="site-header"></div>
+  <main>
+    <section class="page-head">
+      <div class="wrap">
+        <div class="crumbs"><a href="index.html">Home</a><span>/</span><span>Cadeaubon</span></div>
+        <span class="eyebrow eyebrow--center">Cadeau</span>
+        <h1 class="h-xl">Geef de <em class="it">keuze</em></h1>
+        <p>Een geur kies je het liefst zelf. Met een cadeaubon van De Niche geef je precies dat: advies in de winkel, samples en de vrije keuze uit onze collectie.</p>
+      </div>
+    </section>
+    <section class="section" style="padding-top:0">
+      <div class="wrap gift-hero">
+        <div class="reveal">
+          <div class="gift-card">
+            <a class="logo logo--light" href="#"><span class="logo__de">DE</span><span class="logo__niche">Niche</span><span class="logo__parf">PARFUMERIE</span></a>
+            <div><div class="gift-card__amount" data-amount>€ 100</div><div class="gift-card__to">Cadeaubon · voor <span data-to>jou</span></div></div>
+          </div>
+        </div>
+        <div class="reveal" data-delay="1">
+          <span class="label" style="margin-top:0">Bedrag</span>
+          <div class="sizes" data-amounts></div>
+          <span class="label">Vorm</span>
+          <div class="sizes">
+            <button class="size is-active" data-form="Digitaal">Digitaal<small>Direct per e-mail</small></button>
+            <button class="size" data-form="Op papier">Op papier<small>In luxe envelop</small></button>
+          </div>
+          <div class="form-grid" style="margin-top:28px">
+            <div class="input"><label>Voor wie</label><input type="text" placeholder="Naam ontvanger" data-to-input></div>
+            <div class="input"><label>Van</label><input type="text" placeholder="Jouw naam" data-from-input></div>
+            <div class="input full"><label>Persoonlijk bericht (optioneel)</label><textarea rows="3" placeholder="Veel plezier met het kiezen van je geur." data-msg-input></textarea></div>
+          </div>
+          <div class="buy" style="grid-template-columns:1fr">
+            <button class="btn btn--solid" data-gift-add data-ml="100">In winkelmandje</button>
+          </div>
+          <ul class="assure">
+            <li>Twee jaar geldig, in de winkel en online</li>
+            <li>Digitaal: direct na betaling in je inbox</li>
+            <li>Op papier: gratis verzonden in een luxe envelop</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+  <div id="site-footer"></div>
+  <script src="js/products.js?v=20261102e"></script>
+  <script src="js/content.js?v=20261102e"></script>
+  <script src="js/main.js?v=20261102e"></script>
+  <script src="js/motion.js?v=20261102e"></script>
+  <script>
+    (function () {
+      const p = window.PRODUCTS.find(x => x.id === 'cadeaubon');
+      const add = document.querySelector("[data-gift-add]");
+      add.addEventListener("click", () => { const vorm = document.querySelector("[data-form].is-active").dataset.form; const voor = document.querySelector("[data-to-input]").value.trim(); const van = document.querySelector("[data-from-input]").value.trim(); const msg = document.querySelector("[data-msg-input]").value.trim(); window.cart.add("cadeaubon", Number(add.dataset.ml), 1, { vorm, voor: voor ? "Voor " + voor : "", van: van ? "Van " + van : "", bericht: msg ? "“" + msg + "”" : "" }); });
+      document.querySelector('[data-amounts]').innerHTML = p.sizes.map(s => `<button class="size ${s.ml === 100 ? 'is-active' : ''}" data-ml="${s.ml}">${s.label}</button>`).join('');
+      document.querySelector('[data-amounts]').addEventListener('click', e => { const b = e.target.closest('[data-ml]'); if (!b) return; document.querySelectorAll('[data-amounts] .size').forEach(x => x.classList.toggle('is-active', x === b)); add.dataset.ml = b.dataset.ml; document.querySelector('[data-amount]').textContent = '€ ' + b.dataset.ml; });
+      document.querySelectorAll('[data-form]').forEach(b => b.addEventListener('click', () => document.querySelectorAll('[data-form]').forEach(x => x.classList.toggle('is-active', x === b))));
+      document.querySelector('[data-to-input]').addEventListener('input', e => document.querySelector('[data-to]').textContent = e.target.value || 'jou');
+    })();
+  </script>
+</body>
+</html>

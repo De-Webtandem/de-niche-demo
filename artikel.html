@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Journal · De Niche Parfumerie</title>
+  <link rel="stylesheet" href="css/style.css?v=20261102e">
+  <link rel="stylesheet" href="css/shop.css?v=20261102e">
+</head>
+<body>
+  <div id="site-header"></div>
+  <main>
+    <section class="page-head">
+      <div class="wrap">
+        <div class="crumbs"><a href="index.html">Home</a><span>/</span><a href="journal.html">Journal</a><span>/</span><span data-tag></span></div>
+        <span class="eyebrow eyebrow--center" data-date></span>
+        <h1 class="h-xl" data-title></h1>
+        <p data-intro></p>
+      </div>
+    </section>
+    <section class="section" style="padding-top:0">
+      <div class="wrap">
+        <div class="article">
+          <div class="article__hero" data-hero></div>
+          <div data-body></div>
+          <div class="divider" style="margin:48px 0 32px"></div>
+          <div class="share"><span>Deel</span><button data-share>Kopieer link</button></div>
+        </div>
+      </div>
+    </section>
+    <section class="section section--sand">
+      <div class="wrap">
+        <div class="section-head reveal"><div><span class="eyebrow">Lees ook</span><h2 class="h-lg">Meer uit het <em class="it">journal</em></h2></div><a class="link" href="journal.html">Alle verhalen</a></div>
+        <div class="journal" data-more></div>
+      </div>
+    </section>
+  </main>
+  <div id="site-footer"></div>
+  <script src="js/products.js?v=20261102e"></script>
+  <script src="js/content.js?v=20261102e"></script>
+  <script src="js/main.js?v=20261102e"></script>
+  <script src="js/motion.js?v=20261102e"></script>
+  <script>
+    (function () {
+      const id = new URLSearchParams(location.search).get('id');
+      const a = window.ARTICLES.find(x => x.id === id) || window.ARTICLES[0];
+      document.title = `${a.title} · De Niche Parfumerie`;
+      const $ = s => document.querySelector(s);
+      $('[data-tag]').textContent = a.tag;
+      $('[data-date]').textContent = new Date(a.date).toLocaleDateString('nl-NL', { day: 'numeric', month: 'long', year: 'numeric' });
+      $('[data-title]').textContent = a.title;
+      $('[data-intro]').textContent = a.intro;
+      $('[data-hero]').style.setProperty('--post-bg', a.tint);
+      $('[data-body]').innerHTML = a.body;
+      $('[data-share]').addEventListener('click', () => (navigator.clipboard ? navigator.clipboard.writeText(location.href) : Promise.resolve()).then(() => toast('Link gekopieerd.')));
+      $('[data-more]').innerHTML = window.ARTICLES.filter(x => x.id !== a.id).map((b, i) => `
+        <article class="post reveal" data-delay="${i}">
+          <a class="post__media" href="artikel.html?id=${b.id}" style="--post-bg:${b.tint}"><span>${b.tag}</span></a>
+          <h3><a href="artikel.html?id=${b.id}">${b.title}</a></h3><p>${b.intro}</p>
+        </article>`).join('');
+      window.initReveal();
+    })();
+  </script>
+</body>
+</html>

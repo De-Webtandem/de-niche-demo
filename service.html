@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Service · De Niche Parfumerie</title>
+  <meta name="description" content="Verzenden, retourneren en veelgestelde vragen over bestellen bij De Niche Parfumerie in Sneek.">
+  <link rel="stylesheet" href="css/style.css?v=20261102e">
+  <link rel="stylesheet" href="css/shop.css?v=20261102e">
+</head>
+<body>
+  <div id="site-header"></div>
+  <main>
+    <section class="page-head">
+      <div class="wrap">
+        <div class="crumbs"><a href="index.html">Home</a><span>/</span><span>Service</span></div>
+        <span class="eyebrow eyebrow--center">Klantenservice</span>
+        <h1 class="h-xl">Hoe kunnen we <em class="it">helpen</em>?</h1>
+        <div class="service-nav">
+          <a class="chip" href="#verzenden">Verzenden</a><a class="chip" href="#retour">Retourneren</a><a class="chip" href="#faq">Veelgestelde vragen</a><a class="chip" href="contact.html">Contact</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="padding-top:0" id="verzenden">
+      <div class="wrap">
+        <div class="grid grid--3">
+          <div class="tile reveal"><span class="eyebrow">Verzenden</span><h3 style="margin:14px 0 10px">Morgen in huis</h3><p class="small muted">Op werkdagen vóór 16.00 uur besteld, volgende werkdag geleverd met PostNL. Verzekerd, met track &amp; trace. Nederland € 4,95, gratis vanaf € 75. België € 7,95, gratis vanaf € 100.</p></div>
+          <div class="tile reveal" data-delay="1"><span class="eyebrow">Afhalen</span><h3 style="margin:14px 0 10px">Gratis in Sneek</h3><p class="small muted">Kies "Afhalen in de winkel" bij het afrekenen. Je krijgt een bericht zodra het klaarstaat, meestal binnen twee uur tijdens openingstijden.</p></div>
+          <div class="tile reveal" data-delay="2" id="retour"><span class="eyebrow">Retourneren</span><h3 style="margin:14px 0 10px">14 dagen bedenktijd</h3><p class="small muted">Ongeopend en verzegeld retourneren kan binnen 14 dagen. Een geopende flacon nemen we om hygiënische redenen niet terug. Daarom sturen we altijd samples mee.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--sand" id="faq">
+      <div class="wrap--narrow">
+        <div class="section-head section-head--center reveal">
+          <span class="eyebrow eyebrow--center">FAQ</span>
+          <h2 class="h-lg">Veelgestelde <em class="it">vragen</em></h2>
+        </div>
+        <div class="accordion" data-faq></div>
+        <p class="center" style="margin-top:40px"><span class="muted small">Antwoord niet gevonden?</span><br><a class="link link--gold" href="contact.html" style="margin-top:10px">Stel je vraag</a></p>
+      </div>
+    </section>
+  </main>
+  <div id="site-footer"></div>
+  <script src="js/products.js?v=20261102e"></script>
+  <script src="js/content.js?v=20261102e"></script>
+  <script src="js/main.js?v=20261102e"></script>
+  <script src="js/motion.js?v=20261102e"></script>
+  <script>
+    document.querySelector('[data-faq]').innerHTML = window.FAQ.map(f => `<details><summary>${f.q}</summary><p>${f.a}</p></details>`).join('');
+  </script>
+</body>
+</html>

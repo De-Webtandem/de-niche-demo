@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Parfumhuizen · De Niche Parfumerie</title>
+  <meta name="description" content="De parfumhuizen in de collectie van De Niche Parfumerie in Sneek, met het verhaal achter elk huis.">
+  <link rel="stylesheet" href="../css/style.css?v=20261102e">
+  <link rel="stylesheet" href="../css/shop.css?v=20261102e">
+  <link rel="stylesheet" href="site.css?v=20261102e">
+</head>
+<body>
+  <div id="site-header"></div>
+  <main>
+    <section class="page-head page-head--dark">
+      <div class="wrap">
+        <div class="crumbs"><a href="index.html">Home</a><span>/</span><span>Parfumhuizen</span></div>
+        <span class="eyebrow eyebrow--center">De collectie</span>
+        <h1 class="h-xl">Huizen met een <em class="it">eigen handschrift</em></h1>
+        <p>Nichehuizen met kleine oplages en een eigen signatuur, naast een selectie van de grote huizen die je kent. Hieronder het verhaal achter elk huis; de geuren zelf vind je in de webshop.</p>
+      </div>
+    </section>
+    <section class="section">
+      <div class="wrap">
+        <div class="brand-list" data-brands></div>
+      </div>
+    </section>
+    <section class="section section--sand section--tight">
+      <div class="wrap center">
+        <span class="eyebrow eyebrow--center">Mis je een huis?</span>
+        <h2 class="h-md" style="margin:14px auto 20px;max-width:30ch">We breiden de collectie langzaam uit. Vertel ons welk huis je graag in Sneek zou ruiken.</h2>
+        <a class="btn" href="contact.html">Laat het ons weten</a>
+      </div>
+    </section>
+  </main>
+  <div id="site-footer"></div>
+  <script src="../js/products.js?v=20261102e"></script>
+  <script src="../js/content.js?v=20261102e"></script>
+  <script src="site.js?v=20261102e"></script>
+  <script src="../js/motion.js?v=20261102e"></script>
+  <script>
+    document.querySelector("[data-brands]").innerHTML = ["niche", "designer"].map(seg => `<h2 class="h-md" style="grid-column:1/-1;margin:40px 0 8px">${window.SEGMENTS[seg]}</h2>` + window.BRANDS.filter(b => b.segment === seg).map((b, i) => {
+      const n = window.PRODUCTS.filter(p => p.brand === b.id).length;
+      return `<div class="brand-card reveal" id="${b.id}" data-delay="${i % 3}">
+        <div><h3>${b.name}</h3><small>${b.origin}</small><p>${b.text}</p></div>
+        <a class="link link--gold" href="../geuren.html?merk=${b.id}">${n} ${n === 1 ? 'geur' : 'geuren'} in de webshop</a>
+      </div>`;
+    }).join("")).join("");
+    window.initReveal();
+  </script>
+</body>
+</html>

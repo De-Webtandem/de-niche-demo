@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Merken · De Niche Parfumerie</title>
+  <meta name="description" content="De parfumhuizen van De Niche Parfumerie in Sneek: Creed, Maison Francis Kurkdjian, Xerjoff, Amouage, Byredo, Le Labo en meer.">
+  <link rel="stylesheet" href="css/style.css?v=20261102e">
+  <link rel="stylesheet" href="css/shop.css?v=20261102e">
+</head>
+<body>
+  <div id="site-header"></div>
+
+  <main>
+    <section class="page-head">
+      <div class="wrap">
+        <div class="crumbs"><a href="index.html">Home</a><span>/</span><span>Merken</span></div>
+        <span class="eyebrow eyebrow--center">Onze parfumhuizen</span>
+        <h1 class="h-xl">Huizen met een <em class="it">eigen handschrift</em></h1>
+        <p>Nichehuizen met kleine oplages en een eigen signatuur, naast een selectie van de grote huizen die je kent. Allemaal gekozen omdat we erachter staan.</p>
+      </div>
+    </section>
+
+    <section class="section" style="padding-top:0">
+      <div class="wrap">
+        <div class="brand-list" data-brands></div>
+      </div>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="js/products.js?v=20261102e"></script>
+  <script src="js/content.js?v=20261102e"></script>
+  <script src="js/main.js?v=20261102e"></script>
+  <script src="js/motion.js?v=20261102e"></script>
+  <script>
+    document.querySelector("[data-brands]").innerHTML = ["niche", "designer"].map(seg => `<h2 class="h-md" style="grid-column:1/-1;margin:40px 0 8px">${window.SEGMENTS[seg]}</h2>` + window.BRANDS.filter(b => b.segment === seg).map((b, i) => {
+      const n = window.PRODUCTS.filter(p => p.brand === b.id).length;
+      return `<a class="brand-card reveal" data-delay="${i % 3}" href="geuren.html?merk=${b.id}">
+        <div><h3>${b.name}</h3><small>${b.origin}</small><p>${b.text}</p></div>
+        <span class="link link--gold">${n} ${n === 1 ? 'geur' : 'geuren'}</span>
+      </a>`;
+    }).join("")).join("");
+    window.initReveal();
+  </script>
+</body>
+</html>

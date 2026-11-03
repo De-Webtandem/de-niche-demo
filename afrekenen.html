@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Afrekenen · De Niche Parfumerie</title>
+  <link rel="stylesheet" href="css/style.css?v=20261102e">
+  <link rel="stylesheet" href="css/shop.css?v=20261102e">
+</head>
+<body>
+  <div id="site-header"></div>
+
+  <main>
+    <section class="page-head" style="padding-bottom:24px">
+      <div class="wrap">
+        <div class="crumbs"><a href="winkelmandje.html">Winkelmandje</a><span>/</span><span>Afrekenen</span></div>
+        <h1 class="h-xl">Bijna <em class="it">klaar</em></h1>
+        <div class="steps-bar"><span class="is-done">Mandje</span><span class="is-active">Gegevens</span><span class="is-active">Betaling</span><span>Bevestiging</span></div>
+      </div>
+    </section>
+
+    <section class="section" style="padding-top:0">
+      <div class="wrap checkout">
+        <form data-checkout-form novalidate>
+          <div class="login-hint" data-login-hint><span>Al klant? <a href="account.html?next=afrekenen.html">Log in</a> om sneller af te rekenen.</span><span class="small muted">Of reken af als gast.</span></div>
+          <div class="login-hint" data-user-hint hidden><span>Ingelogd als <strong data-user-email></strong>.</span><a href="#" data-logout class="small">Niet jij? Uitloggen</a></div>
+
+          <div class="form-section">
+            <h3><b>1</b> Gegevens</h3>
+            <div class="form-grid">
+              <div class="input"><label>Voornaam</label><input type="text" name="first" required autocomplete="given-name"></div>
+              <div class="input"><label>Achternaam</label><input type="text" name="last" required autocomplete="family-name"></div>
+              <div class="input full"><label>E-mailadres</label><input type="email" name="email" required autocomplete="email"></div>
+              <div class="input full"><label>Telefoon (voor de bezorger)</label><input type="tel" name="phone" autocomplete="tel"></div>
+            </div>
+          </div>
+
+          <div class="form-section">
+            <h3><b>2</b> Bezorging</h3>
+            <label class="option is-active"><input type="radio" name="delivery" value="home" checked><div><strong>Thuisbezorgd</strong><span>Op werkdagen vóór 16.00 besteld, volgende werkdag in huis (NL)</span></div><em data-ship-price>€ 4,95</em></label>
+            <label class="option"><input type="radio" name="delivery" value="pickup"><div><strong>Afhalen in de winkel</strong><span>Sneek · meestal dezelfde dag klaar tijdens openingstijden</span></div><em>Gratis</em></label>
+            <div class="form-grid" style="margin-top:18px" data-address-fields>
+              <div class="input"><label>Postcode</label><input type="text" name="zip" required autocomplete="postal-code"></div>
+              <div class="input"><label>Huisnummer</label><input type="text" name="nr" required></div>
+              <div class="input full"><label>Straat</label><input type="text" name="street" required autocomplete="address-line1"></div>
+              <div class="input"><label>Plaats</label><input type="text" name="city" required autocomplete="address-level2"></div>
+              <div class="input"><label>Land</label><select name="country"><option>Nederland</option><option>België</option></select></div>
+            </div>
+          </div>
+
+          <div class="form-section">
+            <h3><b>3</b> Gratis samples</h3>
+            <p class="small muted">Welke geuren wil je proberen? Dit is een voorkeur; we sturen mee wat beschikbaar is.</p>
+            <div class="form-grid">
+              <div class="input"><label>Sample 1</label><select name="sample1" data-samples></select></div>
+              <div class="input"><label>Sample 2</label><select name="sample2" data-samples></select></div>
+            </div>
+          </div>
+
+          <div class="form-section">
+            <h3><b>4</b> Betaling</h3>
+            <label class="option is-active"><input type="radio" name="payment" value="iDEAL" checked><div><strong>iDEAL</strong><span>Direct via je eigen bank</span></div></label>
+            <label class="option"><input type="radio" name="payment" value="Creditcard"><div><strong>Creditcard</strong><span>Visa, Mastercard, American Express</span></div></label>
+            <label class="option"><input type="radio" name="payment" value="PayPal"><div><strong>PayPal</strong></div></label>
+            <label class="option"><input type="radio" name="payment" value="Klarna"><div><strong>Klarna</strong><span>Achteraf betalen</span></div></label>
+            <label class="option"><input type="radio" name="payment" value="Apple Pay"><div><strong>Apple Pay</strong></div></label>
+            <div class="notice">Prototype: er wordt niets afgeschreven. De echte afrekenpagina wordt de beveiligde Shopify-checkout in de huisstijl van De Niche; deze opmaak laat de stappen en keuzes zien.</div>
+          </div>
+
+          <label class="check" style="margin-bottom:18px"><input type="checkbox" name="terms" required><span>Ik ga akkoord met de <a href="voorwaarden.html" target="_blank" style="text-decoration:underline">algemene voorwaarden</a></span></label>
+          <div class="form-errors" data-errors hidden>Vul alle verplichte velden in.</div>
+          <button class="btn btn--solid btn--block" style="height:56px" type="submit" data-submit>Bestelling plaatsen · <span data-total-btn></span></button>
+          <p class="small muted center" style="margin-top:14px">Veilig betalen · SSL-versleuteld · 14 dagen bedenktijd</p>
+        </form>
+
+        <aside class="summary">
+          <h3>Je bestelling</h3>
+          <div data-cart-lines="page"></div>
+          <div class="totals" style="margin-top:16px"><span>Subtotaal</span><span data-cart-subtotal>€ 0,00</span></div>
+          <div class="totals" data-row-discount hidden><span>Korting</span><span data-discount></span></div>
+          <div class="totals" data-row-wrap hidden><span>Cadeauverpakking</span><span data-wrap></span></div>
+          <div class="totals"><span>Verzending</span><span data-shipping>—</span></div>
+          <div class="totals totals--grand"><span>Totaal</span><strong data-total>€ 0,00</strong></div>
+          <a class="link" href="winkelmandje.html" style="margin-top:16px">Mandje aanpassen</a>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="js/products.js?v=20261102e"></script>
+  <script src="js/content.js?v=20261102e"></script>
+  <script src="js/main.js?v=20261102e"></script>
+  <script src="js/motion.js?v=20261102e"></script>
+  <script>
+    (function () {
+      const $ = s => document.querySelector(s);
+      const form = $('[data-checkout-form]');
+      let pickup = false;
+      document.querySelectorAll('.option').forEach(o => o.addEventListener('change', () => {
+        const name = o.querySelector('input').name;
+        document.querySelectorAll(`.option input[name="${name}"]`).forEach(i => i.closest('.option').classList.toggle('is-active', i.checked));
+        if (name === 'delivery') { pickup = o.querySelector('input').value === 'pickup'; $('[data-address-fields]').style.display = pickup ? 'none' : ''; document.querySelectorAll('[data-address-fields] input').forEach(i => i.required = !pickup); sync(); }
+      }));
+      const opts = window.PRODUCTS.filter(p => !p.hidden).map(p => `<option>${window.BRANDS.find(b => b.id === p.brand).name} – ${p.name}</option>`).join('');
+      document.querySelectorAll('[data-samples]').forEach((s, i) => { s.innerHTML = opts; s.selectedIndex = i; });
+
+      // Prefill vanuit account
+      const u = window.user.get(), a = window.user.address();
+      if (u) { $('[data-login-hint]').hidden = true; $('[data-user-hint]').hidden = false; $('[data-user-email]').textContent = u.email; form.email.value = u.email; const n = u.name.split(' '); form.first.value = n[0]; form.last.value = n.slice(1).join(' '); }
+      if (a) ['first', 'last', 'zip', 'nr', 'street', 'city', 'country', 'phone'].forEach(k => { if (a[k] && form[k]) form[k].value = a[k]; });
+
+      function sync() {
+        const t = window.cart.totals(pickup, form.country.value); const home = window.cart.totals(false, form.country.value);
+        $("[data-ship-price]").textContent = home.shipping ? window.euro(home.shipping) : "Gratis";
+        $('[data-row-discount]').hidden = !t.discount; $('[data-discount]').textContent = '− ' + window.euro(t.discount);
+        $('[data-row-wrap]').hidden = !t.wrap; $('[data-wrap]').textContent = window.euro(t.wrap);
+        $('[data-shipping]').textContent = t.sub === 0 ? '—' : t.shipping === 0 ? 'Gratis' : window.euro(t.shipping);
+        $('[data-total]').textContent = window.euro(t.total); const tb = $('[data-total-btn]'); if (tb) tb.textContent = window.euro(t.total);
+        $('[data-submit]').disabled = t.sub === 0;
+      }
+      document.addEventListener("cart:change", sync); form.country.addEventListener("change", sync);
+      sync();
+
+      form.addEventListener('submit', e => {
+        e.preventDefault();
+        if (!form.checkValidity()) { $('[data-errors]').hidden = false; form.querySelector(':invalid').focus(); return; }
+        $('[data-errors]').hidden = true;
+        const d = Object.fromEntries(new FormData(form));
+        const btn = $('[data-submit]'); btn.disabled = true; btn.textContent = 'Betaling wordt verwerkt…';
+        setTimeout(() => { const o = window.orders.place(d); location.href = 'bedankt.html?order=' + o.number; }, 900);
+      });
+    })();
+  </script>
+</body>
+</html>

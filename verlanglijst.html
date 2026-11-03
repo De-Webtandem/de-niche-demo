@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Verlanglijst · De Niche Parfumerie</title>
+  <link rel="stylesheet" href="css/style.css?v=20261102e">
+  <link rel="stylesheet" href="css/shop.css?v=20261102e">
+</head>
+<body>
+  <div id="site-header"></div>
+  <main>
+    <section class="page-head">
+      <div class="wrap">
+        <div class="crumbs"><a href="index.html">Home</a><span>/</span><span>Verlanglijst</span></div>
+        <span class="eyebrow eyebrow--center">Bewaard</span>
+        <h1 class="h-xl">Je <em class="it">verlanglijst</em></h1>
+        <p>Geuren die je wilt onthouden. Deel de lijst of voeg ze in één keer toe aan je mandje.</p>
+      </div>
+    </section>
+    <section class="section" style="padding-top:0">
+      <div class="wrap">
+        <div class="catalog__bar" data-bar hidden>
+          <span><strong data-n>0</strong> geuren bewaard</span>
+          <div class="chips"><button class="chip" data-share>Deel lijst</button><button class="chip" data-add-all>Alles in mandje</button></div>
+        </div>
+        <div class="grid grid--4" data-grid></div>
+        <div class="empty" data-empty hidden>Je verlanglijst is nog leeg. Klik op het hartje bij een geur om hem te bewaren.<br><a class="link link--gold" href="geuren.html" style="margin-top:16px">Ontdek de geuren</a></div>
+      </div>
+    </section>
+  </main>
+  <div id="site-footer"></div>
+  <script src="js/products.js?v=20261102e"></script>
+  <script src="js/content.js?v=20261102e"></script>
+  <script src="js/main.js?v=20261102e"></script>
+  <script src="js/motion.js?v=20261102e"></script>
+  <script>
+    (function () {
+      function render() {
+        const ids = window.wishlist.items();
+        const list = ids.map(id => window.PRODUCTS.find(p => p.id === id)).filter(Boolean);
+        document.querySelector('[data-grid]').innerHTML = list.map((p, i) => window.cardHTML(p, 'w' + i)).join('');
+        document.querySelector('[data-empty]').hidden = list.length > 0;
+        document.querySelector('[data-bar]').hidden = list.length === 0;
+        document.querySelector('[data-n]').textContent = list.length;
+        window.initReveal();
+      }
+      document.addEventListener('wishlist:change', render);
+      document.querySelector('[data-add-all]').addEventListener('click', () => { window.wishlist.items().forEach(id => { const p = window.PRODUCTS.find(x => x.id === id); window.cart.add(p.id, p.sizes[0].ml, 1); }); });
+      document.querySelector('[data-share]').addEventListener('click', () => { const url = location.origin + location.pathname + '?ids=' + window.wishlist.items().join(','); (navigator.clipboard ? navigator.clipboard.writeText(url) : Promise.resolve()).then(() => toast('Link gekopieerd naar je klembord.')); });
+      const shared = new URLSearchParams(location.search).get('ids');
+      if (shared) { shared.split(',').forEach(id => { if (window.PRODUCTS.find(p => p.id === id) && !window.wishlist.has(id)) window.wishlist.toggle(id); }); history.replaceState(null, '', location.pathname); }
+      render();
+    })();
+  </script>
+</body>
+</html>

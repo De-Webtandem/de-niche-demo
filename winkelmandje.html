@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Winkelmandje · De Niche Parfumerie</title>
+  <link rel="stylesheet" href="css/style.css?v=20261102e">
+  <link rel="stylesheet" href="css/shop.css?v=20261102e">
+</head>
+<body>
+  <div id="site-header"></div>
+
+  <main>
+    <section class="page-head">
+      <div class="wrap">
+        <div class="crumbs"><a href="index.html">Home</a><span>/</span><span>Winkelmandje</span></div>
+        <h1 class="h-xl">Je <em class="it">winkelmandje</em></h1>
+        <div class="steps-bar"><span class="is-active">Mandje</span><span>Gegevens</span><span>Betaling</span><span>Bevestiging</span></div>
+      </div>
+    </section>
+
+    <section class="section" style="padding-top:0">
+      <div class="wrap cart-page">
+        <div>
+          <div data-cart-lines="page"></div>
+          <div data-extras hidden>
+            <label class="check check--box"><input type="checkbox" data-giftwrap><span>Cadeauverpakking<small>Zwarte doos met gouden lint en handgeschreven kaartje · € 4,95</small></span></label>
+            <div class="input" style="margin-top:16px"><label>Opmerking bij je bestelling (optioneel)</label><textarea rows="2" placeholder="Bijvoorbeeld: bezorgen bij de buren is prima." data-note></textarea></div>
+          </div>
+        </div>
+        <aside class="summary">
+          <h3>Overzicht</h3>
+          <div class="totals"><span>Subtotaal</span><span data-cart-subtotal>€ 0,00</span></div>
+          <div class="totals" data-row-discount hidden><span>Korting <span class="muted" data-discount-code></span></span><span data-discount>− € 0,00</span></div>
+          <div class="totals" data-row-wrap hidden><span>Cadeauverpakking</span><span data-wrap></span></div>
+          <div class="totals"><span>Verzending</span><span data-shipping>—</span></div>
+          <div class="totals totals--grand"><span>Totaal</span><strong data-total>€ 0,00</strong></div>
+          <form class="coupon" data-coupon><input type="text" placeholder="Kortingscode" aria-label="Kortingscode" data-coupon-input><button type="submit">Toepassen</button></form>
+          <div class="coupon-msg" data-coupon-msg></div>
+          <a class="btn btn--solid btn--block" href="afrekenen.html" data-checkout>Afrekenen</a>
+          <p class="small" data-ship-hint></p>
+          <p class="small">Je samplevoorkeur geef je door bij het afrekenen.</p>
+          <p class="small muted">Prototype-codes: WELKOM10 (10%) en SNEEK (gratis verzending).</p>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="js/products.js?v=20261102e"></script>
+  <script src="js/content.js?v=20261102e"></script>
+  <script src="js/main.js?v=20261102e"></script>
+  <script src="js/motion.js?v=20261102e"></script>
+  <script>
+    (function () {
+      const $ = s => document.querySelector(s);
+      function sync() {
+        const t = window.cart.totals(false), d = window.cart.discount();
+        $('[data-extras]').hidden = t.sub === 0;
+        $('[data-giftwrap]').checked = window.cart.giftwrap();
+        $('[data-row-discount]').hidden = !t.discount; $('[data-discount]').textContent = '− ' + window.euro(t.discount); $('[data-discount-code]').textContent = d ? `(${d.code})` : '';
+        $('[data-row-wrap]').hidden = !t.wrap; $('[data-wrap]').textContent = window.euro(t.wrap);
+        $('[data-shipping]').textContent = t.sub === 0 ? '—' : t.shipping === 0 ? 'Gratis' : window.euro(t.shipping);
+        $('[data-total]').textContent = window.euro(t.total);
+        $('[data-coupon-input]').value = d ? d.code : '';
+        const btn = $('[data-checkout]'); btn.style.pointerEvents = t.sub === 0 ? 'none' : ''; btn.style.opacity = t.sub === 0 ? '.45' : '';
+      }
+      $('[data-coupon]').addEventListener('submit', e => {
+        e.preventDefault();
+        const r = window.cart.setDiscount($('[data-coupon-input]').value);
+        const m = $('[data-coupon-msg]'); m.textContent = r.msg || ''; m.className = 'coupon-msg ' + (r.ok ? 'is-ok' : 'is-err');
+      });
+      $("[data-giftwrap]").addEventListener("change", e => window.cart.setGiftwrap(e.target.checked));
+      $("[data-note]").value = JSON.parse(localStorage.getItem("dnp-note") || "\"\"");
+      $("[data-note]").addEventListener("input", e => localStorage.setItem("dnp-note", JSON.stringify(e.target.value)));
+      document.addEventListener('cart:change', sync);
+      sync();
+    })();
+  </script>
+</body>
+</html>

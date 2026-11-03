@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Winkel &amp; contact · De Niche Parfumerie</title>
+  <meta name="description" content="Bezoek De Niche Parfumerie in Sneek. Adres, openingstijden, contact en het boeken van een persoonlijk geurconsult.">
+  <link rel="stylesheet" href="css/style.css?v=20261102e">
+  <link rel="stylesheet" href="css/shop.css?v=20261102e">
+</head>
+<body>
+  <div id="site-header"></div>
+
+  <main>
+    <section class="page-head">
+      <div class="wrap">
+        <div class="crumbs"><a href="index.html">Home</a><span>/</span><span>Winkel</span></div>
+        <span class="eyebrow eyebrow--center">Bezoek ons</span>
+        <h1 class="h-xl">De winkel in <em class="it">Sneek</em></h1>
+        <p>Ruiken doe je niet online. Kom langs, neem de tijd en laat je adviseren.</p>
+      </div>
+    </section>
+
+    <section class="section" style="padding-top:0">
+      <div class="wrap store">
+        <div class="reveal">
+          <dl>
+            <dt>Adres</dt><dd data-f="street"></dd>
+            <dt></dt><dd data-f="city"></dd>
+            <dt>Telefoon</dt><dd data-f="phone"></dd>
+            <dt>E-mail</dt><dd><a data-f="email" href="#"></a></dd>
+            <dt>Instagram</dt><dd><a href="#" target="_blank" rel="noopener">@denicheparfumerie</a></dd>
+          </dl>
+          <span class="label" style="margin-top:40px">Openingstijden</span>
+          <table class="hours" data-hours></table>
+          <p class="small muted" style="margin-top:14px">Openingstijden onder voorbehoud tot de officiële opening.</p>
+        </div>
+        <div class="reveal" data-delay="1">
+          <div class="map">
+            <div>
+              <span class="eyebrow eyebrow--center eyebrow--plain">Kaart</span>
+              <p style="margin-top:12px">Hier komt de interactieve kaart zodra het definitieve adres bekend is.</p>
+              <a class="link link--gold" href="https://www.google.com/maps/search/De+Niche+Parfumerie+Sneek" target="_blank" rel="noopener">Open in Google Maps</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="vraag" style="padding-top:0">
+      <div class="wrap split">
+        <div class="reveal">
+          <span class="eyebrow">Contact</span>
+          <h2 class="h-lg">Stel je <em class="it">vraag</em></h2>
+          <p class="lead">Over een bestelling, een geur die je zoekt of een merk dat we (nog) niet voeren. We antwoorden binnen een werkdag.</p>
+          <p class="small muted">Liever bellen? <span data-f="phone"></span> tijdens openingstijden.</p>
+        </div>
+        <form class="reveal" data-delay="1" onsubmit="event.preventDefault(); toast('Bedankt, we antwoorden binnen een werkdag.'); this.reset();">
+          <div class="form-grid">
+            <div class="input"><label>Naam</label><input type="text" required></div>
+            <div class="input"><label>E-mailadres</label><input type="email" required></div>
+            <div class="input full"><label>Onderwerp</label><select><option>Vraag over een bestelling</option><option>Vraag over een geur of merk</option><option>Retour</option><option>Cadeaubon</option><option>Anders</option></select></div>
+            <div class="input full"><label>Bericht</label><textarea rows="4" required></textarea></div>
+          </div>
+          <button class="btn btn--solid" style="margin-top:22px">Verstuur</button>
+        </form>
+      </div>
+    </section>
+
+    <section class="section section--sand" id="consult">
+      <div class="wrap split">
+        <div class="reveal">
+          <span class="eyebrow">Persoonlijk geurconsult</span>
+          <h2 class="h-lg">Boek een <em class="it">consult</em></h2>
+          <p class="lead">Een uur, één op één, in de winkel. We nemen je mee langs geurfamilies en merken en je gaat naar huis met samples. € 25, verrekend bij aankoop. Ook als cadeaubon.</p>
+        </div>
+        <form class="reveal" data-delay="1" onsubmit="event.preventDefault(); toast('Aanvraag ontvangen. We nemen binnen een werkdag contact op.'); this.reset();">
+          <div class="form-grid">
+            <div class="input"><label>Voornaam</label><input type="text" required></div>
+            <div class="input"><label>Achternaam</label><input type="text" required></div>
+            <div class="input full"><label>E-mailadres</label><input type="email" required></div>
+            <div class="input"><label>Telefoon</label><input type="tel"></div>
+            <div class="input"><label>Voorkeursdag</label><select><option>Geen voorkeur</option><option>Dinsdag</option><option>Woensdag</option><option>Donderdag</option><option>Vrijdag</option><option>Zaterdag</option></select></div>
+            <div class="input full"><label>Wat draag je nu, en waar hou je van?</label><textarea rows="4"></textarea></div>
+          </div>
+          <button class="btn btn--solid" style="margin-top:22px">Verstuur aanvraag</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="js/products.js?v=20261102e"></script>
+  <script src="js/content.js?v=20261102e"></script>
+  <script src="js/main.js?v=20261102e"></script>
+  <script src="js/motion.js?v=20261102e"></script>
+  <script>
+    const S = window.STORE;
+    document.querySelectorAll('[data-f]').forEach(el => { el.textContent = S[el.dataset.f]; if (el.dataset.f === 'email') el.href = 'mailto:' + S.email; });
+    document.querySelector('[data-hours]').innerHTML = S.hours.map(([d, h]) => `<tr><td>${d}</td><td>${h}</td></tr>`).join('');
+  </script>
+</body>
+</html>

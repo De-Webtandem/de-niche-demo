@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Mijn account · De Niche Parfumerie</title>
+  <link rel="stylesheet" href="css/style.css?v=20261102e">
+  <link rel="stylesheet" href="css/shop.css?v=20261102e">
+</head>
+<body>
+  <div id="site-header"></div>
+  <main>
+    <!-- Niet ingelogd -->
+    <div data-auth hidden>
+      <section class="page-head">
+        <div class="wrap">
+          <span class="eyebrow eyebrow--center">Mijn account</span>
+          <h1 class="h-xl">Welkom <em class="it">terug</em></h1>
+          <p>Bestellingen volgen, adressen bewaren en je verlanglijst overal bij de hand.</p>
+        </div>
+      </section>
+      <section class="section" style="padding-top:0">
+        <div class="wrap auth">
+          <div>
+            <h2 class="h-md">Inloggen</h2>
+            <p class="muted">Prototype: elk e-mailadres en wachtwoord werkt.</p>
+            <form data-login>
+              <div class="form-grid">
+                <div class="input full"><label>E-mailadres</label><input type="email" name="email" required autocomplete="email"></div>
+                <div class="input full"><label>Wachtwoord</label><input type="password" name="password" required autocomplete="current-password"></div>
+              </div>
+              <button class="btn btn--solid btn--block" type="submit" style="margin-top:22px">Inloggen</button>
+              <p class="small center" style="margin-top:16px"><button type="button" class="link" data-forgot>Wachtwoord vergeten?</button></p>
+            </form>
+          </div>
+          <div>
+            <h2 class="h-md">Account aanmaken</h2>
+            <p class="muted">Sneller afrekenen en je bestellingen op één plek.</p>
+            <form data-register>
+              <div class="form-grid">
+                <div class="input"><label>Voornaam</label><input type="text" name="first" required autocomplete="given-name"></div>
+                <div class="input"><label>Achternaam</label><input type="text" name="last" required autocomplete="family-name"></div>
+                <div class="input full"><label>E-mailadres</label><input type="email" name="email" required autocomplete="email"></div>
+                <div class="input full"><label>Wachtwoord</label><input type="password" name="password" required minlength="6" autocomplete="new-password"></div>
+                <label class="check full"><input type="checkbox" name="news"><span>Houd me op de hoogte van nieuwe merken en lanceringen</span></label>
+              </div>
+              <button class="btn btn--block" type="submit" style="margin-top:22px">Account aanmaken</button>
+            </form>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Ingelogd -->
+    <div data-dash hidden>
+      <section class="page-head">
+        <div class="wrap">
+          <span class="eyebrow eyebrow--center">Mijn account</span>
+          <h1 class="h-xl">Hallo, <em class="it" data-name></em></h1>
+        </div>
+      </section>
+      <section class="section" style="padding-top:0">
+        <div class="wrap account">
+          <nav class="account__nav">
+            <button class="is-active" data-tab="overzicht">Overzicht</button>
+            <button data-tab="bestellingen">Bestellingen</button>
+            <button data-tab="adressen">Adressen</button>
+            <a href="verlanglijst.html">Verlanglijst</a>
+            <button data-tab="gegevens">Gegevens</button>
+            <a href="#" data-logout>Uitloggen</a>
+          </nav>
+          <div>
+            <div class="account__panel" data-panel="overzicht">
+              <h2 class="h-md">Overzicht</h2>
+              <div class="tiles">
+                <div class="tile"><h3 data-order-count>0</h3><span class="small muted">Bestellingen</span></div>
+                <div class="tile"><h3 data-wish-total>0</h3><span class="small muted">In je verlanglijst</span></div>
+                <div class="tile"><h3>2</h3><span class="small muted">Samples bij je volgende bestelling</span></div>
+              </div>
+              <h3 class="h-sm" style="margin:40px 0 14px">Laatste bestelling</h3>
+              <div data-last-order class="muted small">Nog geen bestellingen.</div>
+            </div>
+            <div class="account__panel" data-panel="bestellingen" hidden>
+              <h2 class="h-md" style="margin-bottom:20px">Bestellingen</h2>
+              <div data-orders></div>
+            </div>
+            <div class="account__panel" data-panel="adressen" hidden>
+              <h2 class="h-md" style="margin-bottom:8px">Adressen</h2>
+              <p class="muted small" style="margin-bottom:20px">Dit adres vullen we alvast in bij het afrekenen.</p>
+              <form data-address>
+                <div class="form-grid">
+                  <div class="input"><label>Voornaam</label><input type="text" name="first" required></div>
+                  <div class="input"><label>Achternaam</label><input type="text" name="last" required></div>
+                  <div class="input"><label>Postcode</label><input type="text" name="zip" required></div>
+                  <div class="input"><label>Huisnummer</label><input type="text" name="nr" required></div>
+                  <div class="input full"><label>Straat</label><input type="text" name="street" required></div>
+                  <div class="input"><label>Plaats</label><input type="text" name="city" required></div>
+                  <div class="input"><label>Land</label><select name="country"><option>Nederland</option><option>België</option></select></div>
+                  <div class="input full"><label>Telefoon</label><input type="tel" name="phone"></div>
+                </div>
+                <button class="btn btn--solid" type="submit" style="margin-top:22px">Adres opslaan</button>
+              </form>
+            </div>
+            <div class="account__panel" data-panel="gegevens" hidden>
+              <h2 class="h-md" style="margin-bottom:20px">Gegevens</h2>
+              <form data-profile>
+                <div class="form-grid">
+                  <div class="input full"><label>Naam</label><input type="text" name="name" required></div>
+                  <div class="input full"><label>E-mailadres</label><input type="email" name="email" required></div>
+                  <div class="input full"><label>Nieuw wachtwoord</label><input type="password" name="password" autocomplete="new-password"></div>
+                </div>
+                <button class="btn btn--solid" type="submit" style="margin-top:22px">Opslaan</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+  <div id="site-footer"></div>
+  <script src="js/products.js?v=20261102e"></script>
+  <script src="js/content.js?v=20261102e"></script>
+  <script src="js/main.js?v=20261102e"></script>
+  <script src="js/motion.js?v=20261102e"></script>
+  <script>
+    (function () {
+      const $ = s => document.querySelector(s), $$ = s => Array.from(document.querySelectorAll(s));
+      const U = window.user, O = window.orders;
+      const nextRaw = new URLSearchParams(location.search).get("next") || ""; const next = /^[a-z0-9-]+.html$/.test(nextRaw) ? nextRaw : "";
+      function show() {
+        const u = U.get();
+        $('[data-auth]').hidden = !!u; $('[data-dash]').hidden = !u;
+        if (!u) return;
+        $('[data-name]').textContent = u.name;
+        const list = O.all();
+        $('[data-order-count]').textContent = list.length;
+        $('[data-wish-total]').textContent = window.wishlist.items().length;
+        $('[data-last-order]').innerHTML = list.length ? orderRow(list[0], true) : 'Nog geen bestellingen. <a class="link link--gold" href="geuren.html">Ontdek de geuren</a>';
+        $('[data-orders]').innerHTML = list.length ? `<table class="table"><thead><tr><th>Bestelling</th><th>Datum</th><th>Status</th><th>Totaal</th></tr></thead><tbody>${list.map(o => orderRow(o)).join('')}</tbody></table>` : '<p class="muted">Nog geen bestellingen.</p>';
+        const a = U.address(); if (a) Object.entries(a).forEach(([k, v]) => { const f = $(`[data-address] [name="${k}"]`); if (f) f.value = v; });
+        $('[data-profile] [name="name"]').value = u.name; $('[data-profile] [name="email"]').value = u.email;
+      }
+      function orderRow(o, card) {
+        const d = new Date(o.date).toLocaleDateString('nl-NL', { day: 'numeric', month: 'long', year: 'numeric' });
+        const items = o.items.map(i => { const p = window.PRODUCTS.find(x => x.id === i.id); return `${i.qty}× ${p.name}`; }).join(', ');
+        if (card) return `<div class="tile"><div class="review__head"><strong><a href="bedankt.html?order=${o.number}">${o.number}</a></strong><span>${d}</span></div><p class="small" style="margin:0 0 8px">${items}</p><span class="status">${o.delivery === 'pickup' ? 'Klaar voor afhalen' : 'Onderweg'}</span> <strong style="float:right">${window.euro(o.totals.total)}</strong></div>`;
+        return `<tr><td><a href="bedankt.html?order=${o.number}">${o.number}</a><br><span class="small muted">${items}</span></td><td>${d}</td><td><span class="status">${o.delivery === 'pickup' ? 'Afhalen' : 'Onderweg'}</span></td><td>${window.euro(o.totals.total)}</td></tr>`;
+      }
+      $('[data-login]').addEventListener('submit', e => { e.preventDefault(); const f = new FormData(e.target); U.login(f.get('email')); toast('Welkom terug.'); if (next) location.href = next; else show(); });
+      $('[data-register]').addEventListener('submit', e => { e.preventDefault(); const f = new FormData(e.target); U.login(f.get('email'), `${f.get('first')} ${f.get('last')}`.trim()); toast('Je account is aangemaakt.'); if (next) location.href = next; else show(); });
+      $('[data-forgot]').addEventListener('click', () => toast('Prototype: hier sturen we straks een herstelmail.'));
+      $('[data-address]').addEventListener('submit', e => { e.preventDefault(); U.saveAddress(Object.fromEntries(new FormData(e.target))); toast('Adres opgeslagen.'); });
+      $('[data-profile]').addEventListener('submit', e => { e.preventDefault(); const f = new FormData(e.target); U.login(f.get('email'), f.get('name')); toast('Gegevens opgeslagen.'); show(); });
+      $$('[data-tab]').forEach(b => b.addEventListener('click', () => { $$('[data-tab]').forEach(x => x.classList.toggle('is-active', x === b)); $$('[data-panel]').forEach(p => p.hidden = p.dataset.panel !== b.dataset.tab); }));
+      const tab = new URLSearchParams(location.search).get('tab'); if (tab) { const b = $(`[data-tab="${tab}"]`); if (b) b.click(); }
+      show();
+    })();
+  </script>
+</body>
+</html>

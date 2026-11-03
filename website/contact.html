@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Contact · De Niche Parfumerie</title>
+  <meta name="description" content="Neem contact op met De Niche Parfumerie in Sneek: een vraag over een geur, een merk, een bestelling of een consult.">
+  <link rel="stylesheet" href="../css/style.css?v=20261102e">
+  <link rel="stylesheet" href="../css/shop.css?v=20261102e">
+  <link rel="stylesheet" href="site.css?v=20261102e">
+</head>
+<body>
+  <div id="site-header"></div>
+  <main>
+    <section class="page-head page-head--dark">
+      <div class="wrap">
+        <div class="crumbs"><a href="index.html">Home</a><span>/</span><span>Contact</span></div>
+        <span class="eyebrow eyebrow--center">Contact</span>
+        <h1 class="h-xl">Stel je <em class="it">vraag</em></h1>
+        <p>Over een geur, een merk, een bestelling of een consult. We antwoorden binnen een werkdag.</p>
+      </div>
+    </section>
+    <section class="section">
+      <div class="wrap split">
+        <div class="reveal">
+          <span class="eyebrow">Direct contact</span>
+          <h2 class="h-lg">Liever <em class="it">bellen</em>?</h2>
+          <dl class="store" style="display:grid;grid-template-columns:120px 1fr;row-gap:14px;column-gap:20px;margin-top:24px">
+            <dt style="font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-3);font-weight:500">Telefoon</dt><dd style="margin:0" data-store="phone"></dd>
+            <dt style="font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-3);font-weight:500">E-mail</dt><dd style="margin:0" data-store="email"></dd>
+            <dt style="font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-3);font-weight:500">Adres</dt><dd style="margin:0"><span data-store="street"></span>, <span data-store="city"></span></dd>
+            <dt style="font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-3);font-weight:500">Instagram</dt><dd style="margin:0"><a href="#" rel="noopener">@denicheparfumerie</a></dd>
+          </dl>
+          <p class="small muted" style="margin-top:28px">Vraag over een online bestelling? Kijk ook bij <a href="../service.html" style="text-decoration:underline">verzenden &amp; retourneren</a> in de webshop.</p>
+        </div>
+        <form class="reveal" data-delay="1" onsubmit="event.preventDefault(); toast('Bedankt, we antwoorden binnen een werkdag.'); this.reset();">
+          <div class="form-grid">
+            <div class="input"><label>Naam</label><input type="text" required></div>
+            <div class="input"><label>E-mailadres</label><input type="email" required></div>
+            <div class="input full"><label>Onderwerp</label><select><option>Vraag over een geur of merk</option><option>Geurconsult</option><option>Vraag over een bestelling</option><option>Cadeaubon</option><option>Pers &amp; samenwerking</option><option>Anders</option></select></div>
+            <div class="input full"><label>Bericht</label><textarea rows="5" required></textarea></div>
+          </div>
+          <button class="btn btn--solid" style="margin-top:22px">Verstuur</button>
+        </form>
+      </div>
+    </section>
+  </main>
+  <div id="site-footer"></div>
+  <script src="../js/products.js?v=20261102e"></script>
+  <script src="../js/content.js?v=20261102e"></script>
+  <script src="site.js?v=20261102e"></script>
+  <script src="../js/motion.js?v=20261102e"></script>
+</body>
+</html>

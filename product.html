@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Geur · De Niche Parfumerie</title>
+  <link rel="stylesheet" href="css/style.css?v=20261102e">
+  <link rel="stylesheet" href="css/shop.css?v=20261102e">
+</head>
+<body>
+  <div id="site-header"></div>
+
+  <main>
+    <div class="wrap">
+      <div class="crumbs" style="justify-content:flex-start;padding-top:28px"><a href="index.html">Home</a><span>/</span><a href="geuren.html">Geuren</a><span>/</span><span data-crumb></span></div>
+    </div>
+
+    <section class="wrap product" data-product></section>
+
+    <section class="section" id="reviews">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div><span class="eyebrow">Beoordelingen</span><h2 class="h-lg">Wat <em class="it">dragers</em> zeggen</h2></div>
+          <span class="small muted">Voorbeeldreviews (prototype)</span>
+        </div>
+        <div class="reviews">
+          <div class="reviews__score reveal">
+            <strong data-avg></strong>
+            <div data-avg-stars style="margin:10px 0 6px"></div>
+            <span class="small muted" data-count></span>
+            <div class="divider" style="margin:24px 0"></div>
+            <span class="label" style="margin:0 0 10px">Schrijf een review</span>
+            <form data-review-form>
+              <div class="rating-input" data-rating style="margin-bottom:14px"></div>
+              <div class="input" style="margin-bottom:10px"><input type="text" name="name" placeholder="Je naam" required></div>
+              <div class="input" style="margin-bottom:14px"><textarea name="text" rows="3" placeholder="Wat vind je van deze geur?" required></textarea></div>
+              <button class="btn btn--block" type="submit">Plaats review</button>
+            </form>
+          </div>
+          <div data-reviews class="reveal" data-delay="1"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--sand">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div><span class="eyebrow">Ook interessant</span><h2 class="h-lg">Uit dezelfde <em class="it">familie</em></h2></div>
+          <a class="link" href="geuren.html">Alle geuren</a>
+        </div>
+        <div class="grid grid--4" data-related></div>
+      </div>
+    </section>
+
+    <section class="section section--tight" data-recent-wrap hidden>
+      <div class="wrap">
+        <div class="section-head reveal"><div><span class="eyebrow">Recent bekeken</span><h2 class="h-lg">Nog even <em class="it">terugruiken</em></h2></div></div>
+        <div class="grid grid--4" data-recent></div>
+      </div>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="js/products.js?v=20261102e"></script>
+  <script src="js/content.js?v=20261102e"></script>
+  <script src="js/main.js?v=20261102e"></script>
+  <script src="js/motion.js?v=20261102e"></script>
+  <script>
+    (function () {
+      const id = new URLSearchParams(location.search).get('id');
+      const p = window.PRODUCTS.find(x => x.id === id && !x.hidden); if (!p) { location.replace("404.html"); return; }
+      const b = window.BRANDS.find(x => x.id === p.brand);
+      const F = window.FAMILIES, G = window.GENDERS;
+      const prev = window.recent.items().filter(x => x !== p.id);
+      window.recent.push(p.id);
+      document.title = b.id === "dnp" ? `${p.name} · De Niche Parfumerie` : `${p.name} · ${b.name} · De Niche Parfumerie`;
+      document.querySelector('[data-crumb]').textContent = p.name;
+      const rating = window.productRating(p.id);
+      const stockLow = false;
+
+      let size = p.sizes[0], qty = 1;
+      const root = document.querySelector('[data-product]');
+      root.innerHTML = `
+        <div class="product__gallery">
+          <div class="product__stage">${window.productMedia(p, "stage")}</div>
+          <p class="small muted" style="margin-top:12px" data-photo-note>Illustratie. Productfotografie volgt.</p>
+        </div>
+        <div class="product__info">
+          <div class="product__brand"><a href="geuren.html?merk=${b.id}">${b.name}</a></div>
+          <h1 class="product__name">${p.name}</h1>
+          <div class="product__sub">${p.sub}${p.kind === "set" ? " · Ontdekkingsset" : ` · ${F[p.family].label} · ${G[p.gender]}`}</div>
+          <div class="product__rating">${window.starsHTML(rating.avg)}<span>${rating.avg} / 5</span><a href="#reviews">${rating.count} beoordelingen</a><span class="muted">· voorbeeld</span></div>
+          <div class="product__price"><span data-price></span><small>incl. btw · <span data-ml></span>${p.kind !== "set" ? ` · <span data-per100></span>` : ""}</small></div>
+          <p class="product__desc">${p.desc}</p>
+
+          <span class="label">Inhoud</span>
+          <div class="sizes" data-sizes>
+            ${p.sizes.map(s => `<button class="size ${s === size ? 'is-active' : ''}" data-ml="${s.ml}">${window.sizeLabel(s)}<small>${window.euro(s.price)}</small></button>`).join('')}
+          </div>
+          <div class="stock">Op voorraad · op werkdagen vóór 16.00 besteld, volgende werkdag in huis</div>
+
+          <div class="buy buy--3">
+            <div class="qty"><button data-q="-1" aria-label="Minder">−</button><span data-qty>1</span><button data-q="1" aria-label="Meer">+</button></div>
+            <button class="btn btn--solid" data-buy>In winkelmandje</button>
+            <button class="wish wish--inline ${window.wishlist.has(p.id) ? 'is-on' : ''}" data-wish="${p.id}" aria-label="Bewaar in verlanglijst">${window.ICON.heart}<span class="label-txt">Bewaar</span></button>
+          </div>
+          <ul class="assure">
+            <li>Gratis verzending vanaf € ${window.STORE.freeShipping} · ook af te halen in Sneek</li>
+            <li>Gratis samples bij elke bestelling</li>
+            <li>Origineel en verzegeld</li>
+          </ul>
+          <div class="share"><span>Deel</span><button data-share>Kopieer link</button><a href="mailto:?subject=${encodeURIComponent(p.name + ' van ' + b.name)}&body=${encodeURIComponent(location.href)}">E-mail</a></div>
+
+          <span class="label">${p.kind === "set" ? "In de set" : "Geurnoten"}</span>
+          <div class="notes">
+            <div><b>${p.kind === "set" ? "Fris" : "Top"}</b><span>${p.notes.top.join(', ')}</span></div>
+            <div><b>${p.kind === "set" ? "Bloemig & hout" : "Hart"}</b><span>${p.notes.heart.join(', ')}</span></div>
+            <div><b>${p.kind === "set" ? "Warm" : "Basis"}</b><span>${p.notes.base.join(', ')}</span></div>
+          </div>
+
+          <div class="accordion">
+            <details><summary>Over ${b.name}</summary><p>${b.text} Opgericht in ${b.origin}.</p></details>
+            <details><summary>Dragen &amp; bewaren</summary><p>Spray op de polsen en in de hals, niet wrijven. Bewaar de flacon uit direct zonlicht en op kamertemperatuur; zo blijft de geur jaren goed.</p></details>
+            <details><summary>Verzenden &amp; retourneren</summary><p>Verzending binnen Nederland en België. Ongeopend en verzegeld retourneren kan binnen 14 dagen. Parfum is een persoonlijk product: een geopende flacon nemen we niet terug, daarom sturen we samples mee.</p></details>
+          </div>
+        </div>`;
+
+      const priceEl = root.querySelector('[data-price]'), mlEl = root.querySelector('[data-ml]'), qtyEl = root.querySelector('[data-qty]');
+      function sync() { priceEl.textContent = window.euro(size.price * qty); mlEl.textContent = window.sizeLabel(size); qtyEl.textContent = qty; const p1 = root.querySelector("[data-per100]"); if (p1) p1.textContent = window.euro(size.price / size.ml * 100) + " per 100 ml"; }
+      root.addEventListener('click', e => {
+        const s = e.target.closest(".size[data-ml]");
+        if (s) { size = p.sizes.find(x => x.ml === Number(s.dataset.ml)); root.querySelectorAll('.size').forEach(x => x.classList.toggle('is-active', x === s)); sync(); }
+        const q = e.target.closest('[data-q]');
+        if (q) { qty = Math.max(1, qty + Number(q.dataset.q)); sync(); }
+        if (e.target.closest('[data-buy]')) window.cart.add(p.id, size.ml, qty);
+        if (e.target.closest('[data-share]')) (navigator.clipboard ? navigator.clipboard.writeText(location.href) : Promise.resolve()).then(() => toast('Link gekopieerd.'));
+      });
+      sync();
+
+      // Reviews
+      function renderReviews() {
+        const list = window.productReviews(p.id), r = window.productRating(p.id);
+        document.querySelector('[data-avg]').textContent = r.avg.toLocaleString('nl-NL');
+        document.querySelector('[data-avg-stars]').innerHTML = window.starsHTML(r.avg).replace('class="stars"', 'class="stars stars--lg"');
+        document.querySelector('[data-count]').textContent = `${r.count} beoordelingen`;
+        document.querySelector('[data-reviews]').innerHTML = list.map(x => `<div class="review"><div class="review__head"><div>${window.starsHTML(x.rating)} <strong style="margin-left:8px">${window.esc(x.name)}</strong></div><span>${window.esc(x.city || 'Geverifieerde koper')}${x.date ? ' · ' + x.date : ''}</span></div><p>${window.esc(x.text)}</p></div>`).join('');
+      }
+      let stars = 5;
+      const ri = document.querySelector('[data-rating]');
+      const drawRating = () => ri.innerHTML = [1, 2, 3, 4, 5].map(n => `<button type="button" class="${n <= stars ? 'on' : ''}" data-star="${n}" aria-label="${n} sterren"></button>`).join('');
+      drawRating();
+      ri.addEventListener('click', e => { const s = e.target.closest('[data-star]'); if (s) { stars = Number(s.dataset.star); drawRating(); } });
+      document.querySelector('[data-review-form]').addEventListener('submit', e => {
+        e.preventDefault();
+        const f = new FormData(e.target);
+        const own = JSON.parse(localStorage.getItem('dnp-reviews-' + p.id) || '[]');
+        own.unshift({ name: f.get('name'), text: f.get('text'), rating: stars, city: 'Zojuist geplaatst', date: new Date().toLocaleDateString('nl-NL') });
+        localStorage.setItem('dnp-reviews-' + p.id, JSON.stringify(own));
+        e.target.reset(); renderReviews(); toast('Bedankt voor je review.');
+      });
+      renderReviews();
+
+      const rel = window.PRODUCTS.filter(x => !x.hidden && x.id !== p.id && (x.family === p.family || x.brand === p.brand)).slice(0, 4);
+      document.querySelector('[data-related]').innerHTML = rel.map((x, i) => window.cardHTML(x, 'rel' + i)).join('');
+      const recentList = prev.map(x => window.PRODUCTS.find(y => y.id === x)).filter(Boolean).slice(0, 4);
+      if (recentList.length) { document.querySelector('[data-recent-wrap]').hidden = false; document.querySelector('[data-recent]').innerHTML = recentList.map((x, i) => window.cardHTML(x, 'rec' + i)).join(''); }
+      window.initReveal();
+    })();
+  </script>
+</body>
+</html>

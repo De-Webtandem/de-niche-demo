@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Bedankt voor je bestelling · De Niche Parfumerie</title>
+  <link rel="stylesheet" href="css/style.css?v=20261102e">
+  <link rel="stylesheet" href="css/shop.css?v=20261102e">
+</head>
+<body>
+  <div id="site-header"></div>
+  <main>
+    <section class="section">
+      <div class="wrap confirm" data-confirm>
+        <span class="eyebrow eyebrow--center">Bestelling ontvangen</span>
+        <h1 class="h-xl" style="margin-top:16px">Dank je wel, <em class="it" data-first></em></h1>
+        <div class="confirm__num" data-number></div>
+        <p class="lead" style="margin:0 auto">We hebben je bestelling ontvangen en sturen een bevestiging naar <strong data-email></strong>. <span data-delivery-text></span></p>
+        <div class="timeline" data-timeline>
+          <div class="is-on">Besteld</div><div>Ingepakt</div><div data-step3>Onderweg</div><div data-step4>Bezorgd</div>
+        </div>
+        <div class="confirm__grid">
+          <div><h4>Bestelling</h4><div data-items></div></div>
+          <div><h4 data-address-title>Bezorgadres</h4><p data-address></p><h4 style="margin-top:18px">Betaling</h4><p data-payment></p><h4 style="margin-top:18px">Samples</h4><p data-samples></p></div>
+        </div>
+        <div style="margin-top:40px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
+          <a class="btn btn--solid" href="geuren.html">Verder winkelen</a>
+          <a class="btn" href="account.html?tab=bestellingen">Mijn bestellingen</a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <div id="site-footer"></div>
+  <script src="js/products.js?v=20261102e"></script>
+  <script src="js/content.js?v=20261102e"></script>
+  <script src="js/main.js?v=20261102e"></script>
+  <script src="js/motion.js?v=20261102e"></script>
+  <script>
+    (function () {
+      const n = new URLSearchParams(location.search).get('order');
+      const o = window.orders.get(n) || window.orders.all()[0];
+      const root = document.querySelector('[data-confirm]');
+      if (!o) { root.innerHTML = '<span class="eyebrow eyebrow--center">Geen bestelling</span><h1 class="h-xl" style="margin-top:16px">We vonden geen bestelling</h1><p class="muted" style="margin:18px 0 32px">Plaats eerst een bestelling via het winkelmandje.</p><a class="btn btn--solid" href="geuren.html">Ontdek de geuren</a>'; return; }
+      const $ = s => root.querySelector(s);
+      $("[data-first]").textContent = o.first;
+      $('[data-number]').textContent = 'Bestelnummer ' + o.number;
+      $('[data-email]').textContent = o.email;
+      const pickup = o.delivery === 'pickup';
+      $("[data-delivery-text]").textContent = pickup ? "Je krijgt een bericht zodra je bestelling in de winkel klaarstaat, meestal dezelfde dag tijdens openingstijden." : "Op werkdagen vóór 16.00 besteld, is je bestelling de volgende werkdag in huis.";
+      if (pickup) { $('[data-step3]').textContent = 'Klaar in winkel'; $('[data-step4]').textContent = 'Afgehaald'; }
+      $('[data-items]').innerHTML = o.items.map(i => { const p = window.PRODUCTS.find(x => x.id === i.id); const s = p.sizes.find(x => x.ml === i.ml); return `<div class="totals"><span>${i.qty}× ${p.name} <span class="muted">${window.sizeLabel(s)}${i.props ? " · " + window.esc(Object.values(i.props).filter(Boolean).join(" · ")) : ""}</span></span><span>${window.euro(s.price * i.qty)}</span></div>`; }).join('') +
+        (o.totals.discount ? `<div class="totals"><span>Korting (${o.discount.code})</span><span>− ${window.euro(o.totals.discount)}</span></div>` : '') +
+        (o.totals.wrap ? `<div class="totals"><span>Cadeauverpakking</span><span>${window.euro(o.totals.wrap)}</span></div>` : '') +
+        `<div class="totals"><span>Verzending</span><span>${o.totals.shipping ? window.euro(o.totals.shipping) : 'Gratis'}</span></div><div class="totals totals--grand"><span>Totaal</span><strong>${window.euro(o.totals.total)}</strong></div>`;
+      $('[data-address-title]').textContent = pickup ? 'Afhalen in' : 'Bezorgadres';
+      $('[data-address]').innerHTML = pickup ? `${window.STORE.name}<br>${window.STORE.street}<br>${window.STORE.city}` : window.esc(`${o.first} ${o.last}`) + "<br>" + window.esc(`${o.street} ${o.nr}`) + "<br>" + window.esc(`${o.zip} ${o.city}`) + "<br>" + window.esc(o.country);
+      $('[data-payment]').textContent = o.payment + ' · betaald';
+      $("[data-samples]").textContent = ([o.sample1, o.sample2].filter(Boolean).join(" en ") || "—") + (o.note ? ". Opmerking: " + o.note : "");
+    })();
+  </script>
+</body>
+</html>

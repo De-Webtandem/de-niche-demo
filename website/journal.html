@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Journal · De Niche Parfumerie</title>
+  <meta name="description" content="Verhalen, achtergrond en advies over nicheparfum, geschreven door De Niche Parfumerie in Sneek.">
+  <link rel="stylesheet" href="../css/style.css?v=20261102e">
+  <link rel="stylesheet" href="../css/shop.css?v=20261102e">
+  <link rel="stylesheet" href="site.css?v=20261102e">
+</head>
+<body>
+  <div id="site-header"></div>
+  <main>
+    <section class="page-head page-head--dark">
+      <div class="wrap">
+        <div class="crumbs"><a href="index.html">Home</a><span>/</span><span>Journal</span></div>
+        <span class="eyebrow eyebrow--center">Journal</span>
+        <h1 class="h-xl">Verhalen over <em class="it">geur</em></h1>
+        <p>Achtergrond, advies en de ingrediënten achter de flacons. Geschreven door de mensen in de winkel.</p>
+      </div>
+    </section>
+    <section class="section">
+      <div class="wrap"><div class="journal" data-journal></div></div>
+    </section>
+  </main>
+  <div id="site-footer"></div>
+  <script src="../js/products.js?v=20261102e"></script>
+  <script src="../js/content.js?v=20261102e"></script>
+  <script src="site.js?v=20261102e"></script>
+  <script src="../js/motion.js?v=20261102e"></script>
+  <script>
+    document.querySelector('[data-journal]').innerHTML = window.ARTICLES.map((a, i) => `
+      <article class="post reveal" data-delay="${i}">
+        <a class="post__media" href="artikel.html?id=${a.id}" style="--post-bg:${a.tint}"><span>${a.tag}</span></a>
+        <time>${new Date(a.date).toLocaleDateString('nl-NL', { day: 'numeric', month: 'long', year: 'numeric' })}</time>
+        <h3><a href="artikel.html?id=${a.id}">${a.title}</a></h3><p>${a.intro}</p>
+        <a class="link link--gold" href="artikel.html?id=${a.id}">Lees verder</a>
+      </article>`).join('');
+    window.initReveal();
+  </script>
+</body>
+</html>

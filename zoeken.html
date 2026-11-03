@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Zoeken · De Niche Parfumerie</title>
+  <link rel="stylesheet" href="css/style.css?v=20261102e">
+  <link rel="stylesheet" href="css/shop.css?v=20261102e">
+</head>
+<body>
+  <div id="site-header"></div>
+  <main>
+    <section class="page-head">
+      <div class="wrap">
+        <span class="eyebrow eyebrow--center">Zoeken</span>
+        <h1 class="h-xl" data-title>Waar ben je naar <em class="it">op zoek</em>?</h1>
+        <form action="zoeken.html" method="get" class="search-form" style="max-width:640px;margin:28px auto 0">
+          <div class="field-row">
+            <input type="search" name="q" placeholder="Zoek een geur, merk of ingrediënt" aria-label="Zoeken" data-q>
+            <button type="submit">Zoeken</button>
+          </div>
+        </form>
+      </div>
+    </section>
+    <section class="section" style="padding-top:0">
+      <div class="wrap">
+        <div class="chips" data-brand-hits style="justify-content:center;margin-bottom:32px"></div>
+        <div class="grid grid--4" data-grid></div>
+        <div class="empty" data-empty hidden></div>
+      </div>
+    </section>
+  </main>
+  <div id="site-footer"></div>
+  <script src="js/products.js?v=20261102e"></script>
+  <script src="js/content.js?v=20261102e"></script>
+  <script src="js/main.js?v=20261102e"></script>
+  <script src="js/motion.js?v=20261102e"></script>
+  <script>
+    (function () {
+      const q = new URLSearchParams(location.search).get('q') || '';
+      document.querySelector('[data-q]').value = q;
+      const res = window.searchProducts(q), br = window.searchBrands(q);
+      const title = document.querySelector('[data-title]');
+      if (q.trim()) {
+        document.title = `“${q}” · De Niche Parfumerie`;
+        title.innerHTML = res.length ? `${res.length} ${res.length === 1 ? 'resultaat' : 'resultaten'} voor <em class="it">“${window.esc(q)}”</em>` : `Niets gevonden voor <em class="it">“${window.esc(q)}”</em>`;
+      }
+      document.querySelector('[data-brand-hits]').innerHTML = br.map(b => `<a class="chip" href="geuren.html?merk=${b.id}">Merk: ${window.esc(b.name)}</a>`).join('');
+      document.querySelector('[data-grid]').innerHTML = res.map((p, i) => window.cardHTML(p, 'z' + i)).join('');
+      const empty = document.querySelector('[data-empty]');
+      if (q.trim() && !res.length) { empty.hidden = false; empty.innerHTML = 'Probeer een merk, een geurnaam of een ingrediënt zoals “vanille” of “oud”.<br><a class="link link--gold" href="geuren.html" style="margin-top:16px">Bekijk alle geuren</a>'; }
+      window.initReveal();
+    })();
+  </script>
+</body>
+</html>
