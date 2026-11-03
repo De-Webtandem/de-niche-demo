@@ -236,3 +236,14 @@
 .product__stage .pimg { padding: 8%; }
 .cart-line__img .pimg, .search-hit__img .pimg, .mega__feat-img .pimg { padding: 4%; background: #fff; }
 .card__badge { z-index: 3; }
+
+/* ---------- Winkelmandje op smalle schermen: prijs en verwijderen onder de naam ---------- */
+@media (max-width: 600px) {
+  .cart-line, .cart-page .cart-line, .summary .cart-line { grid-template-columns: 84px 1fr; gap: 14px 16px; align-items: start; }
+  .cart-line > div:last-child { grid-column: 2; display: flex; justify-content: space-between; align-items: center; margin-top: -6px; }
+  .cart-line__price { text-align: left; font-size: 15px; }
+  .cart-line__remove { margin-top: 0; }
+  .cart-line__name { font-size: 18px; }
+  .cart-line__brand { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .cart-line__img { aspect-ratio: 3 / 4; }
+}

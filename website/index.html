@@ -6,9 +6,9 @@
   <meta name="robots" content="noindex, nofollow">
   <title>De Niche Parfumerie · Nicheparfumerie in Sneek</title>
   <meta name="description" content="De Niche Parfumerie in Sneek: een samengestelde selectie nicheparfums, persoonlijk geuradvies en een winkel waar je de tijd krijgt om te ruiken.">
-  <link rel="stylesheet" href="../css/style.css?v=20261102e">
-  <link rel="stylesheet" href="../css/shop.css?v=20261102e">
-  <link rel="stylesheet" href="site.css?v=20261102e">
+  <link rel="stylesheet" href="../css/style.css?v=20261103a">
+  <link rel="stylesheet" href="../css/shop.css?v=20261103a">
+  <link rel="stylesheet" href="site.css?v=20261103a">
 </head>
 <body>
   <div id="site-header"></div>
@@ -45,10 +45,13 @@
 
     <section class="section" style="padding-top:0">
       <div class="wrap">
-        <div class="pillars">
-          <div class="pillar reveal"><b>01</b><div><h3>Samengestelde selectie</h3><p>Nichehuizen én de grote huizen, maar alleen geuren die we zelf dragen en kunnen uitleggen.</p></div></div>
-          <div class="pillar reveal" data-delay="1"><b>02</b><div><h3>Ruiken op de huid</h3><p>Samples bij elke aankoop en een ontdekkingsset om thuis een week te dragen.</p></div></div>
-          <div class="pillar reveal" data-delay="2"><b>03</b><div><h3>Persoonlijk advies</h3><p>Een uur, één op één, langs families en huizen die je nog niet kende.</p></div></div>
+        <div class="manifest">
+          <h2 class="manifest__lead reveal">Een goede geur kies je niet in vijf minuten. <em>Wij ook niet.</em></h2>
+          <div class="manifest__body">
+            <p class="reveal"><strong>We voeren alleen wat we zelf dragen.</strong> Nichehuizen naast de grote huizen, maar elke flacon staat er omdat iemand in de winkel hem kan uitleggen, niet omdat hij goed verkoopt.</p>
+            <p class="reveal" data-delay="1"><strong>Ruiken doe je op je huid, niet op papier.</strong> Bij elke aankoop gaan samples mee. Wie wil, neemt een ontdekkingsset mee naar huis en draagt een week lang.</p>
+            <p class="reveal" data-delay="2"><strong>Advies is een gesprek, geen verkooppraatje.</strong> Past een geur niet bij je, dan zeggen we dat. Liever een klant die terugkomt dan een flacon die in de kast blijft staan.</p>
+          </div>
         </div>
       </div>
     </section>
@@ -71,11 +74,19 @@
           <p>In een uur nemen we je mee langs geurfamilies, merken en flacons die je nog niet kende. Geen verkooppraatje, wel een geur die bij je past. € 25, verrekend bij aankoop.</p>
           <a class="btn btn--light" href="geurconsult.html" style="margin-top:12px">Plan een consult</a>
         </div>
-        <ul class="steps reveal" data-delay="1">
-          <li><b>01</b><div><strong>Vertel</strong><span>Wat draag je nu, waar word je blij van, wanneer draag je het?</span></div></li>
-          <li><b>02</b><div><strong>Ruik</strong><span>We kiezen samen zes tot acht geuren uit verschillende families.</span></div></li>
-          <li><b>03</b><div><strong>Draag</strong><span>Je gaat naar huis met samples. Een geur beoordeel je op de huid, na een dag.</span></div></li>
-        </ul>
+        <div class="invite reveal" data-delay="1">
+          <span class="eyebrow">Uitnodiging</span>
+          <h3>Een uur voor <em>jouw</em> geur</h3>
+          <div class="invite__sub">Eén op één, in de winkel in Sneek</div>
+          <dl>
+            <dt>Duur</dt><dd>Ongeveer een uur, zonder haast</dd>
+            <dt>Prijs</dt><dd>€ 25, verrekend bij aankoop</dd>
+            <dt>Mee naar huis</dt><dd>Samples van je shortlist</dd>
+            <dt>Cadeau</dt><dd>Ook als cadeaubon te geven</dd>
+          </dl>
+          <div class="invite__sign">De Niche</div>
+          <a class="btn btn--solid" href="geurconsult.html">Reserveer een moment</a>
+        </div>
       </div>
     </section>
 
@@ -130,14 +141,14 @@
     </section>
   </main>
   <div id="site-footer"></div>
-  <script src="../js/products.js?v=20261102e"></script>
-  <script src="../js/content.js?v=20261102e"></script>
-  <script src="site.js?v=20261102e"></script>
-  <script src="../js/motion.js?v=20261102e"></script>
+  <script src="../js/products.js?v=20261103a"></script>
+  <script src="../js/content.js?v=20261103a"></script>
+  <script src="site.js?v=20261103a"></script>
+  <script src="../js/motion.js?v=20261103a"></script>
   <script>
     (function () {
       const B = window.BRANDS.filter(b => b.id !== 'dnp');
-      document.querySelector("[data-brand-wall]").innerHTML = B.filter(b => b.segment === "niche").slice(0, 4).concat(B.filter(b => b.segment === "designer").slice(0, 4)).map(b => `<a class="reveal" href="merken.html#${b.id}">${b.name}<small>${b.origin}</small></a>`).join('');
+      document.querySelector("[data-brand-wall]").innerHTML = B.filter(b => b.segment === "niche").slice(0, 4).concat(B.filter(b => b.segment === "designer").slice(0, 3)).map(b => `<a class="reveal" href="merken.html#${b.id}">${b.name}<small>${b.origin}</small></a>`).join('') + `<a class="reveal brand-wall__more" href="merken.html">En nog ${B.length - 7} huizen<small>Alle parfumhuizen</small></a>`;
       const picks = window.PRODUCTS.filter(p => !p.hidden && p.badge === 'Favoriet').slice(0, 4);
       document.querySelector('[data-shop-teaser]').innerHTML = picks.map((p, i) => window.shopCard(p, 'teaser' + i)).join('');
       document.querySelector('[data-journal]').innerHTML = window.ARTICLES.map((a, i) => `
